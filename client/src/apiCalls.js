@@ -5,7 +5,6 @@ export const loginCall = async (userCredential, dispatch) => {
   dispatch({ type: "LOGIN_START" });
   try {
     const { data } = await axios.post("/auth/login", userCredential);
-    console.log(data);
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", JSON.stringify(data.user));
     setAuthToken(data.token);

@@ -10,7 +10,6 @@ router.post("/", auth, async (req, res) => {
     });
 
     if (!conversation || !conversation.length) {
-      console.log("here");
       const newConversation = new Conversation({
         members: [req.body.senderId, req.body.receiverId],
       });
@@ -18,8 +17,6 @@ router.post("/", auth, async (req, res) => {
       const savedConversation = await newConversation.save();
       if (savedConversation) return res.status(200).json([savedConversation]);
     } else {
-      console.log("here 2", conversation);
-
       return res.status(200).json(conversation);
     }
   } catch (err) {

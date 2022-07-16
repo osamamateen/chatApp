@@ -155,7 +155,7 @@ export default function Messenger() {
                 <div className="conversation">
                   <img
                     className="conversationImg"
-                    src="https://monstar-lab.com/global/wp-content/uploads/sites/11/2019/04/male-placeholder-image.jpeg"
+                    src={`https://avatars.dicebear.com/api/bottts/${u?._id}.svg`}
                     alt=""
                   />
                   <span className="conversationName">{u?.username}</span>
@@ -169,11 +169,30 @@ export default function Messenger() {
             {currentChat ? (
               <>
                 <div className="chatBoxTop">
-                  {messages.map((m) => (
-                    <div ref={scrollRef}>
-                      <Message message={m} own={m.sender === user._id} />
-                    </div>
-                  ))}
+                  {messages.length ? (
+                    messages.map((m) => (
+                      <div ref={scrollRef}>
+                        <Message message={m} own={m.sender === user._id} />
+                      </div>
+                    ))
+                  ) : (
+                    <>
+                      <div style={{ textAlign: "center" }}>
+                        <img
+                          src="http://localhost:3000/assets/inbox.svg"
+                          alt=""
+                          style={{
+                            display: "block",
+                            marginLeft: "auto",
+                            marginRight: "auto",
+                            marginTop: "100px",
+                            width: " 40%",
+                            opacity: "5%",
+                          }}
+                        />
+                      </div>
+                    </>
+                  )}
                 </div>
                 <div className="chatBoxBottom">
                   <input
@@ -190,7 +209,20 @@ export default function Messenger() {
                 </div>
               </>
             ) : (
-              <span></span>
+              <div style={{ textAlign: "center" }}>
+                <img
+                  src="http://localhost:3000/assets/inbox.svg"
+                  alt=""
+                  style={{
+                    display: "block",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    marginTop: "100px",
+                    width: " 40%",
+                    opacity: "5%",
+                  }}
+                />
+              </div>
             )}
           </div>
         </div>

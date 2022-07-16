@@ -7,7 +7,7 @@ export default function Message({ message, own }) {
       <div className="messageTop">
         <img
           className="messageImg"
-          src="https://monstar-lab.com/global/wp-content/uploads/sites/11/2019/04/male-placeholder-image.jpeg"
+          src={`https://avatars.dicebear.com/api/bottts/${message.sender}.svg`}
           alt=""
         />
         <p className="messageText">{message.text}</p>

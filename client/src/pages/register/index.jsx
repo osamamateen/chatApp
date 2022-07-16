@@ -32,8 +32,15 @@ export default function Register() {
     <div className="login">
       <div className="loginWrapper">
         <div className="loginLeft">
-          <h3 className="loginLogo">433 Chat</h3>
-          <span className="loginDesc">Connect with your friends.</span>
+          {/* <h3 className="loginLogo">433 Chat</h3> */}
+          <div>
+            <img
+              style={{ width: "350px" }}
+              src="http://localhost:3000/assets/chatLogo.svg"
+              alt=""
+            />
+          </div>
+          {/* <span className="loginDesc">Connect with your friends.</span>  */}
         </div>
         <div className="loginRight">
           <form className="loginBox" onSubmit={handleClick}>
