@@ -1,5 +1,5 @@
 <h1 align="center">
-🌐 MERN Chat App
+💬 MERN Chat App
 </h1>
 <p align="center">
 MongoDB, Express, React, Nodejs, Socket.io
