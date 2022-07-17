@@ -12,13 +12,17 @@ router.post("/register", async (req, res) => {
         return res.status(400).send("Input all required fields");
       }
 
+      // check if user exists
       const oldUser = await User.findOne({ username });
 
       if (oldUser) {
         return res.status(409).send("User Already Exist. Please Login");
       }
+
+      // create password hash
       encryptedPassword = await bcrypt.hash(password, 10);
 
+      // create new user
       const user = await User.create({
         username: username,
         password: encryptedPassword,
@@ -51,8 +55,11 @@ router.post("/login", async (req, res) => {
     if (!(username && password)) {
       return res.status(400).send("All input is required");
     }
+
+    // check for user
     const user = await User.findOne({ username });
 
+    // authenticate user
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = jwt.sign(
         { userId: user._id, username },

@@ -9,6 +9,7 @@ router.get("/", auth, async (req, res) => {
   try {
     let query = {};
 
+    // exclude current
     if (userId) {
       query = {
         _id: { $ne: userId },
@@ -17,7 +18,9 @@ router.get("/", auth, async (req, res) => {
     if (username) {
       query = {
         ...query,
-        username,
+        username: {
+          $regex: ".*" + username + ".*",
+        },
       };
     }
     const users = await User.find(query).select({

@@ -23,6 +23,7 @@ export default function Register() {
         await axios.post("/auth/register", user);
         history.push("/login");
       } catch (err) {
+        alert("User already registered");
         console.log(err);
       }
     }
@@ -44,6 +45,9 @@ export default function Register() {
         </div>
         <div className="loginRight">
           <form className="loginBox" onSubmit={handleClick}>
+            <center>
+              <h3 style={{ color: "#1775ee" }}>Sign up</h3>
+            </center>
             <input
               placeholder="Username"
               required

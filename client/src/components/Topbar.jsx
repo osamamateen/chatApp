@@ -6,6 +6,7 @@ import { AuthContext } from "../context/AuthContext";
 
 export default function Topbar() {
   const { dispatch } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -13,12 +14,23 @@ export default function Topbar() {
   };
   return (
     <div className="topbarContainer">
-      <div className="topbarCenter"></div>
+      <div className="topbarLeft">
+        <div>
+          <h3 style={{ marginLeft: "30px", color: "white" }}>Chat App</h3>
+        </div>
+      </div>
+
       <div className="topbarRight">
-        <div className="topbarLinks">
-          <span onClick={handleClick} className="topbarLink">
+        <div>
+          <img
+            className="topbarImg"
+            src={`https://avatars.dicebear.com/api/bottts/${user?._id}.svg`}
+            alt=""
+          />
+
+          <p onClick={handleClick} className="topbarLink">
             Logout
-          </span>
+          </p>
         </div>
       </div>
     </div>

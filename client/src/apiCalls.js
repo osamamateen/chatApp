@@ -11,6 +11,7 @@ export const loginCall = async (userCredential, dispatch) => {
 
     dispatch({ type: "LOGIN_SUCCESS", payload: data.user });
   } catch (err) {
+    alert("Error: Login failed");
     dispatch({ type: "LOGIN_FAILURE", payload: err });
     setAuthToken();
     localStorage.clear();

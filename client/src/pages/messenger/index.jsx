@@ -3,11 +3,12 @@ import "../../styles/messenger.css";
 import Topbar from "../../components/Topbar";
 import Conversation from "../../components/Conversation";
 import Message from "../../components/Message";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState, useCallback } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { setAuthToken } from "../../helpers/setAuthToken";
 import axios from "axios";
 import { io } from "socket.io-client";
+import debounce from "lodash.debounce";
 
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
@@ -25,7 +26,11 @@ export default function Messenger() {
   setAuthToken(localStorage.getItem("token"));
 
   useEffect(() => {
-    socket.current = io("ws://localhost:8900");
+    socket.current = io("ws://localhost:8900", {
+      query: {
+        token: localStorage.getItem("token"),
+      },
+    });
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
@@ -108,6 +113,19 @@ export default function Messenger() {
     }
   };
 
+  const searchUsers = async () => {
+    const res = await axios.get("/users/", {
+      params: { username: searchValue.current.value, userId: user._id },
+    });
+    setUsers(res.data);
+  };
+
+  const debounceLoadData = useCallback(debounce(searchUsers, 1000), []);
+
+  useEffect(() => {
+    debounceLoadData(searchText);
+  }, [searchText, debounceLoadData]);
+
   const handleKeyDown = async (e) => {
     if (e.key === "Enter") {
       await handleSubmit(e);
@@ -132,10 +150,6 @@ export default function Messenger() {
   const handleChange = async (e) => {
     e.preventDefault();
     setSearchText(searchValue.current.value);
-    const res = await axios.get("/users/", {
-      params: { username: searchValue.current.value, userId: user._id },
-    });
-    setUsers(res.data);
   };
 
   return (

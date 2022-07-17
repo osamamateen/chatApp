@@ -1,8 +1,13 @@
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+
 const io = require("socket.io")(8900, {
   cors: {
     origin: "http://localhost:3000",
   },
 });
+
+dotenv.config();
 
 let users = [];
 
@@ -19,29 +24,42 @@ const getUser = (userId) => {
   return users.find((user) => user.userId === userId);
 };
 
+//when connected
 io.on("connection", (socket) => {
-  //when ceonnect
-  console.log("a user connected.");
+  if (socket.handshake.query && socket.handshake.query.token) {
+    // verify token
+    jwt.verify(
+      socket.handshake.query.token,
+      process.env.TOKEN_KEY,
+      function (err, decoded) {
+        console.log("a user connected.");
 
-  //take userId and socketId from user
-  socket.on("addUser", (userId) => {
-    addUser(userId, socket.id);
-    io.emit("getUsers", users);
-  });
+        //take userId and socketId from user
+        socket.on("addUser", (userId) => {
+          addUser(userId, socket.id);
+          io.emit("getUsers", users);
+        });
 
-  //send and get message
-  socket.on("sendMessage", ({ senderId, receiverId, text }) => {
-    const user = getUser(receiverId);
-    io.to(user.socketId).emit("getMessage", {
-      senderId,
-      text,
-    });
-  });
+        //send and get message
+        socket.on("sendMessage", ({ senderId, receiverId, text }) => {
+          const user = getUser(receiverId);
+          if (user) {
+            io.to(user.socketId).emit("getMessage", {
+              senderId,
+              text,
+            });
+          }
+        });
 
-  //when disconnect
-  socket.on("disconnect", () => {
-    console.log("a user disconnected!");
-    removeUser(socket.id);
-    io.emit("getUsers", users);
-  });
+        //when disconnect
+        socket.on("disconnect", () => {
+          console.log("a user disconnected!");
+          removeUser(socket.id);
+          io.emit("getUsers", users);
+        });
+      }
+    );
+  } else {
+    console.log("Authentication error");
+  }
 });

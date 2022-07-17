@@ -23,42 +23,43 @@ export default function Login() {
   return (
     <div className="login">
       <div className="loginWrapper">
-        <div className="loginRight">
-          <form className="loginBox" onSubmit={handleClick}>
-            <input
-              placeholder="Username"
-              type="username"
-              required
-              className="loginInput"
-              ref={username}
-            />
-            <input
-              placeholder="Password"
-              type="password"
-              required
-              minLength="6"
-              className="loginInput"
-              ref={password}
-            />
-            <button className="loginButton" type="submit" disabled={isFetching}>
-              {isFetching ? (
-                <CircularProgress color="white" size="20px" />
-              ) : (
-                "Log In"
-              )}
-            </button>
-            <button
-              className="loginRegisterButton"
-              onClick={() => history.push("/register")}
-            >
-              {isFetching ? (
-                <CircularProgress color="white" size="20px" />
-              ) : (
-                "Create a New Account"
-              )}
-            </button>
-          </form>
-        </div>
+        <form className="loginBox" onSubmit={handleClick}>
+          <center>
+            <h3 style={{ color: "#1775ee" }}>Login</h3>
+          </center>
+          <input
+            placeholder="Username"
+            type="username"
+            required
+            className="loginInput"
+            ref={username}
+          />
+          <input
+            placeholder="Password"
+            type="password"
+            required
+            minLength="6"
+            className="loginInput"
+            ref={password}
+          />
+          <button className="loginButton" type="submit" disabled={isFetching}>
+            {isFetching ? (
+              <CircularProgress color="white" size="20px" />
+            ) : (
+              "Log In"
+            )}
+          </button>
+          <button
+            className="loginRegisterButton"
+            onClick={() => history.push("/register")}
+          >
+            {isFetching ? (
+              <CircularProgress color="white" size="20px" />
+            ) : (
+              "Create a New Account"
+            )}
+          </button>
+        </form>
       </div>
     </div>
   );

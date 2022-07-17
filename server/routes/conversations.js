@@ -5,11 +5,14 @@ const auth = require("../middleware/auth");
 // create a new Conversation
 router.post("/", auth, async (req, res) => {
   try {
+    // search for existing conversation
     const conversation = await Conversation.find({
       members: { $all: [req.body.senderId, req.body.receiverId] },
     });
 
+    // if conversation does not exist
     if (!conversation || !conversation.length) {
+      // create a new conversation
       const newConversation = new Conversation({
         members: [req.body.senderId, req.body.receiverId],
       });

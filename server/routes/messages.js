@@ -2,8 +2,7 @@ const router = require("express").Router();
 const Message = require("../models/Message");
 const auth = require("../middleware/auth");
 
-//add
-
+// add a new message
 router.post("/", auth, async (req, res) => {
   const newMessage = new Message(req.body);
   try {
@@ -14,8 +13,7 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
-//get
-
+// get all messages from a conversation
 router.get("/:conversationId", auth, async (req, res) => {
   try {
     const messages = await Message.find({
