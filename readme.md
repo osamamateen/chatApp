@@ -40,7 +40,7 @@ $ npm run start // run it locally
 ## Socket usage(PORT: 8900)
 
 ```terminal
-$ cd socket   // go to server folder
+$ cd socket   // go to socket folder
 $ npm i       // npm install packages
 $ npm run start // run it locally
 ```
