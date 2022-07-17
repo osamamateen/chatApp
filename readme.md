@@ -29,7 +29,7 @@ $ npm run start // run it locally
 ```
 
 ## Server-side usage(PORT: 8080)
-
+Create your .env file by copying content from .env.example
 ```terminal
 $ cd server   // go to server folder
 $ npm i       // npm install packages
