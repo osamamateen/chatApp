@@ -45,3 +45,11 @@ $ npm i       // npm install packages
 $ npm run start // run it locally
 ```
 
+
+# Screenshots of this project
+
+User can sign in or sign up
+![User can sign in or sign up](https://i.imgur.com/bhXYJIf.png)
+
+After signing in user can search for other users and chat with with them
+![After signing in user can search for other users and chat with with them](https://i.imgur.com/ielliO1.png)
